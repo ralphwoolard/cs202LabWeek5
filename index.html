@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Towed Vehicle Finder</title>
+    <style>
+    
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <form> 
+    
+        <fieldset>
+           <legend>
+               Enter the information you know:
+           </legend>
+          <input id="make"  name="make" type="text" placeholder="Enter Vehicle Make"><br>
+          <input id="color" name="color" type="text" placeholder="Enter Vehicle Color"><br>
+          <input id="plate" name="plate" type="text" placeholder="Enter Plate Number"><br>
+          <input id="state" name="state" type="text" placeholder="Enter 2-letter State Code"><br>
+      </fieldset>
+
+      <button type="button">Find your car!</button>
+
+
+    </form>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+      //lets us use ajax and jquery
+      </script>   
+   
+      
+      <script>
+
+     function towed() {        //function to get users inputs to the data
+       
+
+        var endpoint = "https://data.cityofchicago.org/resource/rp42-fxjt.json"; //why is it called endpoint?
+
+        var url = endpoint + "?make=" + $("#make").val();   //attempt to append to the URL.how does the syntax work? Can we append things better?
+        var url = endpoint + "?color=" + $("#color").val();
+        var url = endpoint + "?plate=" + $("#plate").val();
+        var url = endpoint + "?state=" + $("#state").val();
+
+         
+                
+  $.ajax({                            //what is ajax exactly?
+    type:"get",
+    url:"https://data.cityofchicago.org/resource/rp42-fxjt.json",      //the URL to which we append our user's inputs
+    success: function(data){                    //not sure what this line does                  
+    for(i in data){
+    result+="Towed to: "+data.towed_to_address";            //returning useful information to the user.
+    }
+    $("#list").html(result);                        //list format 
+    }
+  });
+});
+        
+
+      }
+    </script>
+
+
+<script>
+ 
+      $("button").on("click", towed);        //determining what happens when the button is clicked.
+    
+
+
+  </script>
+
+
+
+  </body>
+</html>
+
+
+
